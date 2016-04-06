@@ -2,14 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
-class MaterialImpact {
-	PhysicMaterial physicMaterial;
-	AudioClip[] playerFootstepSounds;
-	AudioClip[] mechFootstepSounds;
-	AudioClip[] spiderFootstepSounds;
-	AudioClip[] bulletHitSounds;
-}
 
+class MaterialImpact {
+	public PhysicMaterial physicMaterial;
+	public AudioClip[] playerFootstepSounds;
+	public AudioClip[] mechFootstepSounds;
+	public AudioClip[] spiderFootstepSounds;
+	public AudioClip[] bulletHitSounds;
+}
 
 public class MaterialImpactManager : MonoBehaviour {
 
@@ -27,23 +27,23 @@ public class MaterialImpactManager : MonoBehaviour {
 		}
 	}
 	
-	static AudioClip GetPlayerFootstepSound (PhysicMaterial mat) {
-		var imp : MaterialImpact = GetMaterialImpact (mat);
+	public static AudioClip GetPlayerFootstepSound (PhysicMaterial mat) {
+		MaterialImpact imp = GetMaterialImpact (mat);
 		return GetRandomSoundFromArray(imp.playerFootstepSounds);
 	}
 	
-	static AudioClip GetMechFootstepSound (PhysicMaterial mat ) {
-		var imp : MaterialImpact = GetMaterialImpact (mat);
+	public static AudioClip GetMechFootstepSound (PhysicMaterial mat ) {
+		MaterialImpact imp = GetMaterialImpact (mat);
 		return GetRandomSoundFromArray(imp.mechFootstepSounds);
 	}
 	
-	static AudioClip GetSpiderFootstepSound (PhysicMaterial mat) {
-		var imp : MaterialImpact = GetMaterialImpact (mat);
+	public static AudioClip GetSpiderFootstepSound (PhysicMaterial mat) {
+		MaterialImpact imp = GetMaterialImpact (mat);
 		return GetRandomSoundFromArray(imp.spiderFootstepSounds);
 	}
 	
-	static AudioClip GetBulletHitSound (PhysicMaterial mat) {
-		var imp : MaterialImpact = GetMaterialImpact (mat);
+	public static AudioClip GetBulletHitSound (PhysicMaterial mat) {
+		MaterialImpact imp = GetMaterialImpact (mat);
 		return GetRandomSoundFromArray(imp.bulletHitSounds);
 	}
 	
@@ -53,7 +53,7 @@ public class MaterialImpactManager : MonoBehaviour {
 		return defaultMat;
 	}
 	
-	static AudioClip GetRandomSoundFromArray (AudioClip[] audioClipArray) {
+	public static AudioClip GetRandomSoundFromArray (AudioClip[] audioClipArray) {
 		if (audioClipArray.Length > 0)
 			return audioClipArray[Random.Range (0, audioClipArray.Length)];
 		return null;

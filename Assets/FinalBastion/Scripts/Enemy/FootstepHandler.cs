@@ -24,7 +24,7 @@ public class FootstepHandler : MonoBehaviour {
 			return;
 		}
 
-		AudioClip sound;
+		AudioClip sound = null;
 
 		switch (footType) {
 		case FootType.Player:
@@ -38,32 +38,11 @@ public class FootstepHandler : MonoBehaviour {
 			break;
 		}
 
-		audioSource.pitch = Random.Range (0.98, 1.02);
-		audioSource.PlayOneShot (sound, Random.Range (0.8, 1.2));
+		if (sound != null) {
+			audioSource.pitch = Random.Range (0.98f, 1.02f);
+			audioSource.PlayOneShot (sound, Random.Range (0.8f, 1.2f));
+		}
 	}
 
 }
 
-/*
-function OnFootstep () {
-	if (!audioSource.enabled)
-	{
-		return;
-	}
-	
-	var sound : AudioClip;
-	switch (footType) {
-	case FootType.Player:
-		sound = MaterialImpactManager.GetPlayerFootstepSound (physicMaterial);
-		break;
-	case FootType.Mech:
-		sound = MaterialImpactManager.GetMechFootstepSound (physicMaterial);
-		break;
-	case FootType.Spider:
-		sound = MaterialImpactManager.GetSpiderFootstepSound (physicMaterial);
-		break;
-	}	
-	audioSource.pitch = Random.Range (0.98, 1.02);
-	audioSource.PlayOneShot (sound, Random.Range (0.8, 1.2));
-}
-*/

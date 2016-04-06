@@ -11,5 +11,6 @@ function Awake () {
 function OnSignal () {
 	if (sound)
 		audioSource.clip = sound;
+		
 	audioSource.Play ();
 }

@@ -14,6 +14,7 @@ function Start () {
 #endif
 
 function Update () {
+return;
 #if UNITY_IPHONE || UNITY_ANDROID || UNITY_WP8 || UNITY_WP_8_1 || UNITY_BLACKBERRY || UNITY_TIZEN
 	
 	if(!GLOBAL.isJSConnected)

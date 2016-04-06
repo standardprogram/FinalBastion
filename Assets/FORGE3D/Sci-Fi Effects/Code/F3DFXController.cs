@@ -110,6 +110,13 @@ public class F3DFXController : MonoBehaviour
 
     }
 
+	public void SwitchWeapon(int id) {
+		Stop ();
+
+		DefaultFXType = (F3DFXType) id;
+
+	}
+
     // Switch to next weapon type
     public void NextWeapon()
     {
@@ -139,7 +146,7 @@ public class F3DFXController : MonoBehaviour
     }
 
 	public float GetDamage() {
-		return (int)(DefaultFXType+1) * 3.5f;
+		return (int)(DefaultFXType+2) * 3.5f;
 	}
 
     // Fire turret weapon

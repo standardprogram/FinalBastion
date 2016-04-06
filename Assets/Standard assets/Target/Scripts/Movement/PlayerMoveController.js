@@ -3,7 +3,7 @@
 // Objects to drag in
 public var motor : MovementMotor;
 public var character : Transform;
-public var cursorPrefab : GameObject;
+//public var cursorPrefab : GameObject;
 public var joystickPrefab : GameObject;
 
 // Settings
@@ -66,10 +66,7 @@ function Awake () {
 			joystickRightGO.name = "Joystick Right";
 			joystickRight = joystickRightGO.GetComponent.<Joystick> ();			
 		}
-	#elif !UNITY_FLASH
-		if (cursorPrefab) {
-			cursorObject = (Instantiate (cursorPrefab) as GameObject).transform;
-		}
+
 	#endif
 	
 	// Save camera offset so we can use it in the first frame

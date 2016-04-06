@@ -7,7 +7,7 @@ function OnSignal () {
 	transform.position = checkpoint.position;
 	transform.rotation = checkpoint.rotation;
 	
-	ResetHealthOnAll ();
+	//ResetHealthOnAll ();
 }
 
 static function ResetHealthOnAll () {

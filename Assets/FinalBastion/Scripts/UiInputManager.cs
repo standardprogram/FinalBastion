@@ -31,22 +31,22 @@ public class UiInputManager : MonoBehaviour {
 		}
 
 		if (CrossPlatformInputManager.GetButtonUp ("UP")) {
-			if(menu.IsActive)
+			if(menu.IsShown)
 				menu.HoverUp();
 		}
 
 		if (CrossPlatformInputManager.GetButtonUp ("DOWN")) {
-			if(menu.IsActive)
+			if(menu.IsShown)
 				menu.HoverDown();
 		}
 
 		if (CrossPlatformInputManager.GetButtonUp ("RIGHT")) {
-			if(menu.IsActive)
+			if(menu.IsShown)
 				menu.HoverRight();
 		}
 
 		if (CrossPlatformInputManager.GetButtonUp ("LEFT")) {
-			if(menu.IsActive)
+			if(menu.IsShown)
 				menu.HoverLeft();
 		}
 	}

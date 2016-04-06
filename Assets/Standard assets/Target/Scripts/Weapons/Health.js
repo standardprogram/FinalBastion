@@ -11,8 +11,6 @@ public var damageEffectTransform : Transform;
 public var damageEffectMultiplier : float = 1.0;
 public var damageEffectCentered : boolean = true;
 
-public var scorchMarkPrefab : GameObject = null;
-private var scorchMark : GameObject = null;
 
 public var damageSignals : SignalSender;
 public var dieSignals : SignalSender;
@@ -38,14 +36,11 @@ function Awake () {
 		damageEffectCenterYOffset = collider.bounds.extents.y;
 
 	}
-	if (scorchMarkPrefab) {
-		scorchMark = GameObject.Instantiate(scorchMarkPrefab, Vector3.zero, Quaternion.identity);
-		scorchMark.SetActive (false);
-	}
+
 }
 
+
 function OnDamage (amount : float, fromDirection : Vector3) {
-	Debug.Log("@@@@@@@@@@@@@");
 	// Take no damage if invincible, dead, or if the damage is zero
 	if(invincible)
 		return;
@@ -54,21 +49,10 @@ function OnDamage (amount : float, fromDirection : Vector3) {
 	if (amount <= 0)
 		return;
 
-	// Decrease health by damage and send damage signals
-
-	// @HACK: this hack will be removed for the final game
-	//  but makes playing and showing certain areas in the
-	//  game a lot easier
-	/*
-	#if !UNITY_IPHONE && !UNITY_ANDROID && !UNITY_WP8
-	if(gameObject.tag != "Player")
-		amount *= 10.0;
-	#endif
-	*/
-
 	health -= amount;
 	damageSignals.SendSignals (this);
 	lastDamageTime = Time.time;
+	
 	Debug.Log("Health = "+health);
 	// Enable so the Update function will be called
 	// if regeneration is enabled
@@ -95,23 +79,12 @@ function OnDamage (amount : float, fromDirection : Vector3) {
 	if (health <= 0)
 	{
 		//GameScore.RegisterDeath (gameObject);
-		Debug.Log("HHHHHHHH");
+
 		health = 0;
 		dead = true;
 		dieSignals.SendSignals (this);
 		enabled = false;
-
-		// scorch marks
-		if (scorchMark) {
-			scorchMark.SetActive (true);
-			// @NOTE: maybe we can justify a raycast here so we can place the mark
-			// on slopes with proper normal alignments
-			// @TODO: spawn a yield Sub() to handle placement, as we can
-			// spread calculations over several frames => cheap in total
-			var scorchPosition : Vector3 = collider.ClosestPointOnBounds (transform.position - Vector3.up * 100);
-			scorchMark.transform.position = scorchPosition + Vector3.up * 0.1;
-			scorchMark.transform.eulerAngles.y = Random.Range (0.0, 90.0);
-		}
+		
 	}
 }
 

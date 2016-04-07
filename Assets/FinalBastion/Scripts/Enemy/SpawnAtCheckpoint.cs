@@ -13,7 +13,7 @@ public class NewBehaviourScript : MonoBehaviour {
 	}
 	
 	static void ResetHealthOnAll () {
-		Health[] healthObjects  = GameObject.FindObjectsOfType (Health) as Health[];
+		Health[] healthObjects  = GameObject.FindObjectsOfType (typeof(Health)) as Health[];
 		foreach (Health health in healthObjects) {
 			health.dead = false;
 			health.health = health.maxHealth;

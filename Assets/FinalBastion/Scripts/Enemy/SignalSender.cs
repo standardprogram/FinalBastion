@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public class ReceiverItem {
 	public GameObject receiver;
 	public string action = "OnSignal";
@@ -15,7 +16,11 @@ public class ReceiverItem {
 	}
 }
 
+
+[System.Serializable]
 public class SignalSender {
+
+
 	public bool onlyOnce;
 	public ReceiverItem[] receivers;
 	

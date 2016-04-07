@@ -2,15 +2,15 @@
 using System.Collections;
 
 public class FootstepHandler : MonoBehaviour {
-	enum FootType {
+	public enum FootType {
 		Player,
 		Mech,
 		Spider
 	}
 
 
-	AudioSource audioSource;
-	FootType footType;
+	public AudioSource audioSource;
+	public FootType footType;
 
 	private PhysicMaterial physicMaterial;
 

@@ -68,10 +68,10 @@ public class SoliderAnimation : MonoBehaviour {
 		
 		foreach (MoveAnimation moveAnimation  in moveAnimations) {
 			moveAnimation.Init ();
-			animationComponent[moveAnimation.clip.name].layer = 1;
+			animationComponent[moveAnimation.clip.name].layer = 5;
 			animationComponent[moveAnimation.clip.name].enabled = true;
 		}
-		animationComponent.SyncLayer (1);
+		animationComponent.SyncLayer (5);
 		
 		animationComponent[idle.name].layer = 2;
 		animationComponent[turn.name].layer = 3;
@@ -81,7 +81,7 @@ public class SoliderAnimation : MonoBehaviour {
 		animationComponent[shootAdditive.name].weight = 1;
 		animationComponent[shootAdditive.name].speed = 0.6f;
 		animationComponent[shootAdditive.name].blendMode = AnimationBlendMode.Additive;
-		
+		animationComponent [shootAdditive.name].enabled = false;
 		//animation[turn.name].enabled = true;
 
 	}
@@ -93,11 +93,12 @@ public class SoliderAnimation : MonoBehaviour {
 	public void OnStartFire () {
 		if (Time.timeScale == 0)
 			return;
-		
+		Debug.Log ("11111");
 		animationComponent[shootAdditive.name].enabled = true;
 	}
 	
 	public void OnStopFire () {
+		Debug.Log ("22222");
 		animationComponent[shootAdditive.name].enabled = false;
 	}
 	
@@ -129,15 +130,18 @@ public class SoliderAnimation : MonoBehaviour {
 					smallestDiff = diff;
 				}
 			}
-			
+
 			animationComponent.CrossFade (bestAnimation.clip.name);
+		
 		}
 		else {
 			bestAnimation = null;
 		}
+
 		
-		if (lowerBodyForward != lowerBodyForwardTarget && idleWeight >= 0.9f)
+		if (lowerBodyForward != lowerBodyForwardTarget && idleWeight >= 0.9f) {
 			animationComponent.CrossFade (turn.name, 0.05f);
+		}
 		
 		if (bestAnimation != null && (idleWeight < 0.9f)) {
 			var newAnimTime = Mathf.Repeat (animationComponent[bestAnimation.clip.name].normalizedTime * 2 + 0.1f, 1);
@@ -201,10 +205,10 @@ public class SoliderAnimation : MonoBehaviour {
 		// Create a Quaternion rotation from the rotation angle
 		Quaternion lowerBodyDeltaRotation = Quaternion.Euler (0, lowerBodyDeltaAngle, 0);
 
-		if (lowerBodyDeltaAngle > Mathf.Epsilon) {
-			Debug.Log (lowerBodyDeltaAngle + ":" + idle);
-			Debug.Log (tr.forward+"-----"+lowerBodyForward + ":---:"+lowerBodyForwardTarget);
-		}
+		//if (lowerBodyDeltaAngle > Mathf.Epsilon) {
+		//	Debug.Log (lowerBodyDeltaAngle + ":" + idle);
+		//	Debug.Log (tr.forward+"-----"+lowerBodyForward + ":---:"+lowerBodyForwardTarget);
+		//}
 
 		// Rotate the whole body by the angle
 		//rootBone.rotation = lowerBodyDeltaRotation * rootBone.rotation;

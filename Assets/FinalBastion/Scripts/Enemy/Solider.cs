@@ -11,19 +11,13 @@ public class Solider : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (stand != null && laydown != null)
-			transform.rotation = Quaternion.Slerp (stand, laydown, Time.time);
+			transform.rotation = Quaternion.Slerp(stand, laydown, Time.time*0.6f);
 
 	}
 
-	private IEnumerator destroy() {
-		yield return new WaitForSeconds(2);
-		Destroy (gameObject);
-		//Debug.Log (transform.rotation);
-	}
 
 	public void OnDead() {
 		stand = transform.rotation;
 		laydown = transform.rotation * Quaternion.Euler (-80, 0, 0);
-		StartCoroutine (destroy());
 	}
 }

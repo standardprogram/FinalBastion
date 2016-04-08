@@ -13,7 +13,7 @@ public class Menu : MonoBehaviour {
 
 	private int cursorIndex;
 	private int curBtnIndex;
-
+	[HideInInspector]
 	public GameObject[] buttonList;
 
 	// Use this for initialization

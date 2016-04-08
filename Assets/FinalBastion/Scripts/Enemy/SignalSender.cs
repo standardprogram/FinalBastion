@@ -19,8 +19,6 @@ public class ReceiverItem {
 
 [System.Serializable]
 public class SignalSender {
-
-
 	public bool onlyOnce;
 	public ReceiverItem[] receivers;
 	

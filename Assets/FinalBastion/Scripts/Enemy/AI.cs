@@ -5,52 +5,95 @@ public class AI : MonoBehaviour {
 	
 	// Objects to drag in
 	public MovementMotor motor;
-	public Transform character;
 
-		
-	void Awake () {		
-		motor.movementDirection = Vector2.zero;
-		motor.facingDirection = Vector2.zero;
 
-		// Ensure we have character set
-		// Default to using the transform this component is on
-		if (!character)
-			character = transform;
+	private Health soliderHealth;
+	private bool isDead;
 
-	}
-	
+	private int state;	//0:normal, 1:hurt, 2:dead
+
+	private float lastTime = 0;
+	public SignalSender startFireSignals;
+	public SignalSender stopFireSignals;
+
 	void Start () {
-	
-	
+		state = 0;
+
+		soliderHealth = this.GetComponent<Health> ();
 	}
 
-	public void OnHurt() {
 
-	}
 
 	void Update () {
-		// HANDLE CHARACTER MOVEMENT DIRECTION
+		//soliderHealth.OnDamage (0.1f, Vector3.zero);
+		if (Time.time - lastTime > 2) {
+			int n = Random.Range (1, 3);
+			if (n == 2) {
+				StartCoroutine(Fire ());
+			}
+			lastTime = Time.time;
+		}
 
-		#if UNITY_ANDROID || UNITY_WP8 || UNITY_WP_8_1 || UNITY_BLACKBERRY || UNITY_TIZEN
-		motor.movementDirection = Vector3.zero;
-
-		// On mobiles, use the thumb stick and convert it into screen movement space
-		motor.facingDirection = Vector3.zero;
-
-
-		#else
-		//motor.movementDirection = Input.GetAxis ("Horizontal") * screenMovementRight + Input.GetAxis ("Vertical") * screenMovementForward;
-		#endif
+		switch (state) {
+		case 0: //normal
+			motor.movementDirection = (Vector3.zero - transform.position);
+			motor.facingDirection = (Vector3.zero - transform.position);
+			break;
+		case 1:	//hurt
+			Vector3 originDirection = (Vector3.zero - transform.position);
+			motor.movementDirection = new Vector3(originDirection.x+dodgeOffset, originDirection.y, originDirection.z);
+//			Debug.Log(originDirection + "------"+motor.movementDirection);
+			motor.facingDirection = (Vector3.zero - transform.position);
+			break;
+		case 2:	//dead
+			motor.movementDirection = Vector3.zero;
+			return;
 		
-		//Debug.Log("H:"+Input.GetAxis ("Horizontal"));
-		//Debug.Log("3rd:"+Input.GetAxis ("3rdAxis"));
-		//Debug.Log("J3rd:"+Input.GetAxis ("Joystick 3rdAxis"));
-		// Make sure the direction vector doesn't exceed a length of 1
-		// so the character can't move faster diagonally than horizontally or vertically
+		}
+
 		if (motor.movementDirection.sqrMagnitude > 1)
-			motor.movementDirection.Normalize();
+			motor.movementDirection.Normalize ();
 	
+	}
+
+	private IEnumerator Fire() {
+		startFireSignals.SendSignals (this);
+		yield return new WaitForSeconds (1);
+
+		stopFireSignals.SendSignals (this);
+	}
+
+	private IEnumerator Dodge() {
+		float dodgeTime = Random.Range(1, 4);
+		yield return new WaitForSeconds (dodgeTime);
+
+		dodgeOffset = 0;
+		if(state == 1)
+			state = 0;
+	}
+
+	private IEnumerator DelayRemoveBody() {
+		yield return new WaitForSeconds(2);
+		Destroy (gameObject);
+		//Debug.Log (transform.rotation);
+	}
 	
+
+	private float dodgeOffset = 0;
+
+	public void OnHurt() {
+		//调整角度跑几秒
+		if (state == 0) {
+			state = 1;
+			dodgeOffset = Random.Range (-500, 500);
+
+			StartCoroutine(Dodge());
+		}
+	}
+
+	public void OnDead() {
+		state = 2;
+		StartCoroutine (DelayRemoveBody());
 	}
 
 }

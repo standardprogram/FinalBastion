@@ -2,18 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 
-
-class MaterialImpact {
+[System.Serializable]
+public class MaterialImpact {
 	public PhysicMaterial physicMaterial;
 	public AudioClip[] playerFootstepSounds;
-	public AudioClip[] mechFootstepSounds;
-	public AudioClip[] spiderFootstepSounds;
 	public AudioClip[] bulletHitSounds;
 }
 
 public class MaterialImpactManager : MonoBehaviour {
-
-	MaterialImpact[] materials;
+	public MaterialImpact[] materials;
 	
 	private static Dictionary<PhysicMaterial, MaterialImpact> dict;
 	private static MaterialImpact defaultMat;
@@ -31,16 +28,7 @@ public class MaterialImpactManager : MonoBehaviour {
 		MaterialImpact imp = GetMaterialImpact (mat);
 		return GetRandomSoundFromArray(imp.playerFootstepSounds);
 	}
-	
-	public static AudioClip GetMechFootstepSound (PhysicMaterial mat ) {
-		MaterialImpact imp = GetMaterialImpact (mat);
-		return GetRandomSoundFromArray(imp.mechFootstepSounds);
-	}
-	
-	public static AudioClip GetSpiderFootstepSound (PhysicMaterial mat) {
-		MaterialImpact imp = GetMaterialImpact (mat);
-		return GetRandomSoundFromArray(imp.spiderFootstepSounds);
-	}
+
 	
 	public static AudioClip GetBulletHitSound (PhysicMaterial mat) {
 		MaterialImpact imp = GetMaterialImpact (mat);

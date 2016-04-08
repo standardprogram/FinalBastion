@@ -6,24 +6,33 @@ using System.Collections;
 public class MovementMotor : MonoBehaviour {
 	[HideInInspector]
 	public Vector3 movementDirection;
-	[HideInInspector]
-	public Vector3 movementTarget;
+
 	[HideInInspector]	
 	public Vector3 facingDirection;
 
     //MoveController:
     public float walkingSpeed = 5.0f;
-    public float walkingSnappyness = 50.0f;
+    public float walkingSnappyness = 500000.0f;
     public float turningSmoothing = 0.3f;
 
 
+	private Rigidbody rigibody;
+
+	// Use this for initialization
+	void Start () {
+		rigibody = this.GetComponent<Rigidbody> ();
+	}
+
+
     void FixedUpdate()
-    {
+	{
+
         Vector3 targetVelocity = movementDirection * walkingSpeed;
 		Vector3 deltaVelocity = targetVelocity - rigibody.velocity;
 
 		if (rigibody.useGravity)
             deltaVelocity.y = 0;
+
 		rigibody.AddForce(deltaVelocity * walkingSnappyness, ForceMode.Acceleration);
 
         Vector3 faceDir = facingDirection;
@@ -51,12 +60,5 @@ public class MovementMotor : MonoBehaviour {
         return angle * (Vector3.Dot(axis, Vector3.Cross(dirA, dirB)) < 0? -1:1);
     }
 
-
-	Rigidbody rigibody;
-	// Use this for initialization
-	void Start () {
-		rigibody = this.GetComponent<Rigidbody> ();
-	}
-	
 
 }

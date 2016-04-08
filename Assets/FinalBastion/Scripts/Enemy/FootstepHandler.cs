@@ -30,12 +30,6 @@ public class FootstepHandler : MonoBehaviour {
 		case FootType.Player:
 			sound = MaterialImpactManager.GetPlayerFootstepSound(physicMaterial);
 			break;
-		case FootType.Mech:
-			sound = MaterialImpactManager.GetMechFootstepSound(physicMaterial);
-			break;
-		case FootType.Spider:
-			sound = MaterialImpactManager.GetSpiderFootstepSound(physicMaterial);
-			break;
 		}
 
 		if (sound != null) {

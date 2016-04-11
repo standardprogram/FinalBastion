@@ -26,7 +26,7 @@ public class EnemyManager : MonoBehaviour {
 	private void CreateTarget() {
 
 		float x = Random.Range (-40, 40);
-		float z = Random.Range (80, 120);
+		float z = Random.Range (150, 180);
 		Vector3 position = new Vector3 (x, 10, z);
 
 

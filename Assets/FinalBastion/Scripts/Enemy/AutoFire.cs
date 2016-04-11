@@ -73,7 +73,7 @@ public class AutoFire : MonoBehaviour {
 	public void OnStartFire () {
 		if (Time.timeScale == 0)
 			return;
-		Debug.Log("33333");
+
 		firing = true;
 		
 		muzzleFlashFront.SetActive (true);
@@ -84,8 +84,7 @@ public class AutoFire : MonoBehaviour {
 	
 	public void OnStopFire () {
 		firing = false;
-
-		Debug.Log("44444");
+		
 		muzzleFlashFront.SetActive (false);
 		
 		if (audio)

@@ -141,7 +141,7 @@ public class F3DFXController : MonoBehaviour
     void AdvanceSocket()
     {
         curSocket++;
-        if (curSocket > 3)
+		if (curSocket >= TurretSocket.Length)
             curSocket = 0;
     }
 

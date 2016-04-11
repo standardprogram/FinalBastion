@@ -93,12 +93,10 @@ public class SoliderAnimation : MonoBehaviour {
 	public void OnStartFire () {
 		if (Time.timeScale == 0)
 			return;
-		Debug.Log ("11111");
 		animationComponent[shootAdditive.name].enabled = true;
 	}
 	
 	public void OnStopFire () {
-		Debug.Log ("22222");
 		animationComponent[shootAdditive.name].enabled = false;
 	}
 	
